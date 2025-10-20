@@ -1,0 +1,19 @@
+[book]
+title = "Construção APIs web com GO"
+author = "Gustavo"
+language = "pt-BR"
+multilingual = true
+src = "src"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+additional-js = []
+git-repository-url = "https://github.com/seuuser/workshop-go"
+
+[output.html.fold]
+enable = true
+level = 2
