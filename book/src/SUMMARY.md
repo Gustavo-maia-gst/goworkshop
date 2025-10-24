@@ -3,7 +3,6 @@
   - [Ambiente](arco1/ambiente.md)
   - [Hello World](arco1/hello_world.md)
   - [Básicos da linguagem](arco1/language.md)
-  - [Representação de dados](arco1/dados.md)
 - [Arco 2](arco2/README.md)
   - [Primeiras request](arco2/first_req.md)
   - [Virando o jogo](arco2/hosting.md)
