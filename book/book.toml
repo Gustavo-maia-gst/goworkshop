@@ -9,10 +9,10 @@ src = "src"
 build-dir = "book"
 
 [output.html]
-default-theme = "navy"
-preferred-dark-theme = "navy"
+default-theme = "Navy"
+preferred-dark-theme = "Navy"
 additional-js = []
-git-repository-url = "https://github.com/seuuser/workshop-go"
+git-repository-url = "https://github.com/Gustavo-maia-gst/goworkshop"
 
 [output.html.fold]
 enable = true

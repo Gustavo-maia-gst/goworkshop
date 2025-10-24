@@ -1,6 +1,6 @@
 # Introdução
 
-Bem-vindo!! Nesse workshop vamos aprender os fundamentos da linguagem, a idéia é partir do `Hello, World` e ir incrementalmente evoluindo até um servidor lidando com requests concorrentemente, logging e rastreabilidade! No final ainda vamos ter uma breve discussão sobre diferentes trade-offs entre linguagens (Tudo em menos de 2 horas 😅)
+Bem-vindo!! Nesse workshop vamos aprender os fundamentos da linguagem e construir alguns exemplos, a idéia é partir do `Hello, World` e ir incrementalmente evoluindo até um servidor lidando com requests concorrentemente, logging e rastreabilidade! No final ainda vamos ter uma breve discussão sobre diferentes trade-offs entre linguagens (Tudo em menos de 2 horas 😅)
 
 ## Vamos dividir em 3 arcos:
 

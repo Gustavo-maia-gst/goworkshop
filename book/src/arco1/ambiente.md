@@ -15,3 +15,19 @@ sudo apt install golang-go # Debian based
 ```bash
 sudo pacman -S go # Arch based
 ```
+
+Para testar se a instalação foi bem sucedida, rode o comando:
+
+```bash
+go version
+```
+
+Caso seja imprimido algum texto com a versão do GO, está tudo certo!
+
+### Clonando o repositório
+
+Vamos clonar o repositório do workshop para termos acesso ao código fonte dos exemplos.
+
+```bash
+git clone https://github.com/Gustavo-maia-gst/goworkshop.git
+```
