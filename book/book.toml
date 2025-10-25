@@ -10,6 +10,7 @@ build-dir = "book"
 
 [output.html]
 default-theme = "Navy"
+cache-busting = true
 preferred-dark-theme = "Navy"
 additional-js = []
 git-repository-url = "https://github.com/Gustavo-maia-gst/goworkshop"
