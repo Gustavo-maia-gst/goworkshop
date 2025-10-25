@@ -18,11 +18,7 @@ Bem-vindo!! Nesse workshop vamos aprender os fundamentos da linguagem e construi
 
   - Complicando: integrar com um serviço externo
 
-  - Deixando mais rápido: Breve (muito breve) passagem por Concorrência 🚀
-
-  - Descobrir o que está acontecendo: Logging 📄
-
-  - Conseguir rastrear requests: Rastreabilidade 🔎
+  - Descobrir o que está acontecendo e rastreando requests
 
   - Retrospectiva: O que aprendemos até aqui? 🤔
 
@@ -30,7 +26,5 @@ Bem-vindo!! Nesse workshop vamos aprender os fundamentos da linguagem e construi
   - Analisar velocidade e consumo de memória entre diferentes tecnologias para servidores web
 
   - Sendo crítico: Onde Go resolve e onde é um problema
-
-  - Extras e desafios
 
 > 💡 **Dica:** Você pode usar o [Go Playground](`https://go.dev/play/`) para executar pequenos trechos diretamente no navegador, embora para alguns exemplos vai ser necessário ter o ambiente local configurado.

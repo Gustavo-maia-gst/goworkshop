@@ -52,6 +52,7 @@ func lerResposta(resp *http.Response) []byte {
 Você talvez já deva imaginar como ficariam os handlers para cada uma das APIs agora. Ficaria algo assim:
 
 ```go
+// server v1
 package main
 
 import (
@@ -140,6 +141,7 @@ O problema é que o client está finalizando o processo ao encontrar o menor err
 Para isso, vamos seguir o padrão idiomático do GO, a função enviarRequisicao passa a retornar duas coisas, um *[]byte* e um *err* indicando um possível problema que possa ter ocorrido.<br>
 O handlers agora fariam algo parecido como:
 ```go
+// server v2
 handleAPI(writer http.ResponseWriter, url string) {
 	resposta, err := enviarRequisicao(url)
 
@@ -153,8 +155,50 @@ handleAPI(writer http.ResponseWriter, url string) {
 ```
 (os arquivos em arco2/server_v2 tem as implementações atualizadas)
 
-### Contando requisições
+### Lendo a resposta e montando payload
 
-Podemos inserir um contador para verificar quantas requisições foram atendidas enquanto o servidor está rodando, mas para isso, vamos parar de retornar uma string e passar a retornar uma coisa mais estruturada.<br>
+Podemos retornar por exemplo o tamanho do resultado em um outro campo.
 
-Vamos retornar um JSON com dois campos, { contador: number; resultado: any }, mas como podemos fazer isso? Para fazermos isso, podemos criar uma struct com esses campos e depois serializar essa struct usando mais uma utilidade nativa da linguagem.<br>
+Vamos retornar um JSON com dois campos, { tamanho: number; resultado: any }, mas como podemos fazer isso?<br>
+
+Para o tamanho, podemos apenas chamar o length<br>
+Para retornar o dado estruturado em json, fazemos um Marshal (ou serialização) de uma struct anonima combinando essas duas variáveis, o handleAPI ficaria assim:
+
+```go
+// server v3
+
+// Chamado por todos
+func handleAPI(writer http.ResponseWriter, url string) {
+	respostaDaApi, err := enviarRequisicao(url)
+	if err != nil {
+		writer.Write([]byte(err.Error()))
+	}
+
+	// Aqui transformamos os bytes retornados em objeto estruturado para serializarmos depois
+	var respostaDaApiEmJson any
+	json.Unmarshal(respostaDaApi, &respostaDaApiEmJson) // o unmarshal vai montar uma struct com os campos do json
+
+	// Aqui tem um conceito novo, structs anonimas, parecidas com os types do typescript
+	// IMPORTANTE: os campos precisam começar com letra maiúscula, caso contrário
+	// seriam tratados como campos privados e não seriam serializados!
+	resposta := struct {
+		Tamanho  int
+		Resposta any // isso significa que a tipagem desse campo é desconhecida
+	}{
+		Tamanho:  len(respostaDaApi),
+		Resposta: respostaDaApiEmJson,
+	}
+
+	respostaJson, err := json.Marshal(resposta)
+	if err != nil {
+		writer.Write([]byte(err.Error()))
+		return
+	}
+
+	writer.Write(respostaJson)
+
+```
+
+Com isso nós temos um pequeno servidor com diversas coisas já funcionando! Temos roteamento de requests, integramos com serviços externos e trabalhamos serialização/desserialização.
+
+Se você quiser testar como seu server lida com várias requests ao mesmo tempo, pode usar o script em `arco2/requests.sh` passando a quantidade de requests como parâmetro

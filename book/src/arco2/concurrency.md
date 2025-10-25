@@ -1,1 +1,0 @@
-# Introduzindo concorrência com GO

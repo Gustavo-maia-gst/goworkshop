@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"net/http"
@@ -59,12 +60,33 @@ func handlerRickAndMorty(
 
 // Chamado por todos
 func handleAPI(writer http.ResponseWriter, url string) {
-	resposta, err := enviarRequisicao(url)
+	respostaDaApi, err := enviarRequisicao(url)
 	if err != nil {
 		writer.Write([]byte(err.Error()))
 	}
 
-	writer.Write(resposta)
+	// Aqui transformamos os bytes retornados em objeto estruturado para serializarmos depois
+	var respostaDaApiEmJson any
+	json.Unmarshal(respostaDaApi, &respostaDaApiEmJson) // o unmarshal vai montar uma struct com os campos do json
+
+	// Aqui tem um conceito novo, structs anonimas, parecidas com os types do typescript
+	// IMPORTANTE: os campos precisam começar com letra maiúscula, caso contrário
+	// seriam tratados como campos privados e não seriam serializados!
+	resposta := struct {
+		Tamanho  int
+		Resposta any // isso significa que a tipagem desse campo é desconhecida
+	}{
+		Tamanho:  len(respostaDaApi),
+		Resposta: respostaDaApiEmJson,
+	}
+
+	respostaJson, err := json.Marshal(resposta)
+	if err != nil {
+		writer.Write([]byte(err.Error()))
+		return
+	}
+
+	writer.Write(respostaJson)
 }
 
 // Essa é a função que será chamada caso a URI não seja nenhuma das outras
